@@ -1,0 +1,44 @@
+<footer class="bg-bg-darker text-text-primary py-8 border-t border-slate-800">
+  <div class="container mx-auto px-6">
+    <!-- Contenido principal del footer en una sola línea -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+      
+      <!-- Enlaces de navegación -->
+      <div class="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2">
+        <a routerLink="/" class="text-text-muted hover:text-accent transition-colors">
+          Inicio
+        </a>
+        <a routerLink="/about" class="text-text-muted hover:text-accent transition-colors">
+          Sobre Mí
+        </a>
+        <a routerLink="/projects" class="text-text-muted hover:text-accent transition-colors">
+          Proyectos
+        </a>
+        <a routerLink="/contact" class="text-text-muted hover:text-accent transition-colors">
+          Contacto
+        </a>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/gabriel-del13" 
+           class="text-text-muted hover:text-accent transition-colors"
+           target="_blank"
+           rel="noopener noreferrer">
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/gabriel-delcid-13200x" 
+           class="text-text-muted hover:text-accent transition-colors"
+           target="_blank"
+           rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-slate-800 mt-6 pt-6 text-center text-text-muted text-sm">
+      <p>&copy; {{ currentYear }} Gabriel Del Cid. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

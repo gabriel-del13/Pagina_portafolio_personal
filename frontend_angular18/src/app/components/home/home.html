@@ -1,0 +1,96 @@
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-bg-dark via-bg-light to-bg-darker pt-20 text-text-primary">
+  <div class="container mx-auto px-6">
+    @if (dataService.loading()) {
+      <div class="text-center">
+        <div class="w-16 h-16 border-4 border-accent border-t-primary rounded-full animate-spin mx-auto"></div>
+        <p class="mt-4 text-text-secondary">Cargando...</p>
+      </div>
+    } @else if (dataService.profile()) {
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6">
+            Hola, soy <span class="text-primary">{{ dataService.profile()!.name }}</span>
+          </h1>
+          <p class="text-2xl text-text-secondary mb-4">{{ dataService.profile()!.title }}</p>
+          <p class="text-lg text-text-muted mb-8 whitespace-pre-wrap">{{ dataService.profile()!.bio }}</p>
+          
+          <div class="flex gap-4 justify-center md:justify-start">
+            <a routerLink="/projects" class="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-all shadow-lg hover:shadow-primary/50">
+              Ver Proyectos
+            </a>
+            <a routerLink="/contact" class="px-6 py-3 bg-transparent border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all">
+              Contactar
+            </a>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <img [src]="dataService.profile()!.profile_image || 'assets/avatar.png'" 
+               [alt]="dataService.profile()!.name"
+               class="w-80 h-80 rounded-full object-cover border-4 border-primary/30 shadow-2xl shadow-primary/20">
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-20 bg-bg-light">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center text-text-primary mb-12">
+      Proyectos <span class="text-primary">Destacados</span>
+    </h2>
+    
+    @if (dataService.loading()) {
+      <div class="text-center py-12">
+        <div class="w-16 h-16 border-4 border-accent border-t-primary rounded-full animate-spin mx-auto"></div>
+        <p class="mt-4 text-text-muted">Cargando proyectos...</p>
+      </div>
+    }
+    
+    @else if (dataService.error()) {
+      <div class="text-center py-12">
+        <p class="text-danger mb-4">{{ dataService.error() }}</p>
+        <button (click)="dataService.loadProjects()" class="btn-primary">
+          Reintentar
+        </button>
+      </div>
+    }
+    
+    @else if (featuredProjects.length > 0) {
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (project of featuredProjects; track project.id) {
+          <div class="bg-bg-dark rounded-xl overflow-hidden cursor-pointer hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-primary shadow-lg" 
+               [routerLink]="['/projects', project.id]">
+            <img [src]="project.thumbnail" [alt]="project.title" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-text-primary mb-2">{{ project.title }}</h3>
+              <p class="text-text-muted mb-4">{{ project.short_description }}</p>
+              
+              <div class="flex flex-wrap gap-2">
+                @for (tech of project.technologies.slice(0, 3); track tech.id) {
+                  <span class="bg-primary/10 text-primary border border-primary/30 px-3 py-1 rounded-full text-xs font-medium">
+                    {{ tech.name }}
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="text-center mt-12">
+        <a routerLink="/projects" class="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-all shadow-lg hover:shadow-primary/50 inline-block">
+          Ver Todos los Proyectos
+        </a>
+      </div>
+    }
+    
+    @else {
+      <div class="text-center py-12">
+        <p class="text-text-muted">No hay proyectos destacados aún</p>
+      </div>
+    }
+  </div>
+</section>

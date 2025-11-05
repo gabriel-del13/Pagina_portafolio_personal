@@ -1,0 +1,76 @@
+<nav class="fixed w-full top-0 z-50 bg-bg-dark/95 backdrop-blur-sm border-b border-slate-700/50 shadow-xl">
+  <div class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <a routerLink="/" class="text-2xl font-bold text-primary hover:text-blue-400 transition-colors">
+        Gabriel Del Cid
+      </a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8">
+        <a routerLink="/" 
+           routerLinkActive="!text-primary !font-bold" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="text-text-secondary hover:text-primary transition-colors font-medium">
+          Inicio
+        </a>
+        <a routerLink="/about" 
+           routerLinkActive="!text-primary !font-bold"
+           class="text-text-secondary hover:text-primary transition-colors font-medium">
+          Sobre Mí
+        </a>
+        <a routerLink="/projects" 
+           routerLinkActive="!text-primary !font-bold"
+           class="text-text-secondary hover:text-primary transition-colors font-medium">
+          Proyectos
+        </a>
+        <a routerLink="/contact" 
+           routerLinkActive="!text-primary !font-bold"
+           class="text-text-secondary hover:text-primary transition-colors font-medium">
+          Contacto
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button (click)="toggleMenu()" class="md:hidden text-text-primary">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          @if (!isMenuOpen()) {
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          } @else {
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          }
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (isMenuOpen()) {
+      <div class="md:hidden mt-4 pb-4 border-t border-slate-700/50 pt-4">
+        <a routerLink="/" 
+           (click)="toggleMenu()" 
+           routerLinkActive="!text-primary !font-bold"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="block py-2 text-text-secondary hover:text-primary transition-colors">
+          Inicio
+        </a>
+        <a routerLink="/about" 
+           (click)="toggleMenu()" 
+           routerLinkActive="!text-primary !font-bold"
+           class="block py-2 text-text-secondary hover:text-primary transition-colors">
+          Sobre Mí
+        </a>
+        <a routerLink="/projects" 
+           (click)="toggleMenu()" 
+           routerLinkActive="!text-primary !font-bold"
+           class="block py-2 text-text-secondary hover:text-primary transition-colors">
+          Proyectos
+        </a>
+        <a routerLink="/contact" 
+           (click)="toggleMenu()" 
+           routerLinkActive="!text-primary !font-bold"
+           class="block py-2 text-text-secondary hover:text-primary transition-colors">
+          Contacto
+        </a>
+      </div>
+    }
+  </div>
+</nav>

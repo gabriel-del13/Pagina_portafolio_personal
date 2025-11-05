@@ -1,0 +1,79 @@
+<div class="pt-20 min-h-screen bg-bg-dark">
+  <!-- Bio Section -->
+  <section class="py-20 bg-gradient-to-br from-bg-dark via-bg-light to-bg-darker">
+    <div class="container mx-auto px-6">
+      @if (dataService.profile()) {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div class="flex justify-center">
+            <img [src]="dataService.profile()!.profile_image || 'assets/avatar.png'"
+                 [alt]="dataService.profile()!.name"
+                 class="w-80 h-80 rounded-2xl shadow-2xl object-cover border-4 border-primary/30 shadow-primary/20">
+          </div>
+
+          <div>
+            <h1 class="text-4xl font-bold text-text-primary mb-4">Sobre Mí</h1>
+            <h2 class="text-2xl text-primary font-semibold mb-6">
+              {{ dataService.profile()!.title }}
+            </h2>
+            <p class="text-text-secondary text-lg leading-relaxed mb-6 whitespace-pre-line">
+              {{ dataService.profile()!.bio }}
+            </p>
+
+            <div class="flex gap-4">
+              @if (dataService.profile()!.resume) {
+                <a [href]="dataService.profile()!.resume" target="_blank" 
+                   class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-all shadow-lg hover:shadow-primary/50">
+                  Descargar CV
+                </a>
+              }
+              <a [href]="'mailto:' + dataService.profile()!.email" 
+                 class="px-6 py-3 bg-transparent border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all">
+                Enviar Correo
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="py-20 bg-bg-light">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center text-text-primary mb-12">
+        Mis <span class="text-primary">Habilidades</span>
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (skill of dataService.skills(); track skill.id) {
+          <div class="bg-bg-dark rounded-xl p-6 border border-slate-700 hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/10">
+            <div class="flex items-center gap-4 mb-4">
+              @if (skill.icon) {
+                <img [src]="skill.icon" [alt]="skill.name" class="w-12 h-12 object-contain">
+              } @else {
+                <div class="w-12 h-12 bg-primary/20 border border-primary rounded-lg flex items-center justify-center text-primary font-bold text-xl">
+                  {{ skill.name.charAt(0) }}
+                </div>
+              }
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-text-primary">{{ skill.name }}</h3>
+                <p class="text-sm text-text-muted">
+                  Nivel: 
+                  <span class="font-semibold text-accent">
+                    @if (skill.proficiency === 'beginner') {
+                      Principiante
+                    } @else if (skill.proficiency === 'intermediate') {
+                      Intermedio
+                    } @else {
+                      Avanzado
+                    }
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</div>

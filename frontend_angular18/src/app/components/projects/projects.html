@@ -1,0 +1,73 @@
+<div class="pt-20 min-h-screen bg-bg-dark">
+  <section class="py-20">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-bold text-center text-text-primary mb-4">
+        Todos los <span class="text-primary">Proyectos</span>
+      </h1>
+      <p class="text-xl text-center text-text-muted mb-12">Explora mi trabajo</p>
+
+      <!-- Filtros -->
+      <div class="flex justify-center gap-3 mb-12">
+        <button (click)="setFilter('all')" 
+                [class]="filter() === 'all' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-bg-light text-text-secondary border border-slate-600'"
+                class="px-6 py-2 rounded-full font-medium transition-all hover:scale-105">
+          Todos
+        </button>
+        <button (click)="setFilter('completed')" 
+                [class]="filter() === 'completed' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-bg-light text-text-secondary border border-slate-600'"
+                class="px-6 py-2 rounded-full font-medium transition-all hover:scale-105">
+          Completados
+        </button>
+        <button (click)="setFilter('in_progress')" 
+                [class]="filter() === 'in_progress' ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-bg-light text-text-secondary border border-slate-600'"
+                class="px-6 py-2 rounded-full font-medium transition-all hover:scale-105">
+          En Progreso
+        </button>
+      </div>
+
+      <!-- Grid -->
+      @if (dataService.loading()) {
+        <div class="text-center">
+          <div class="w-16 h-16 border-4 border-accent border-t-primary rounded-full animate-spin mx-auto"></div>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          @for (project of filteredProjects; track project.id) {
+            <div class="bg-bg-light rounded-xl overflow-hidden cursor-pointer hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-primary shadow-lg hover:shadow-primary/20" 
+                 [routerLink]="['/projects', project.id]">
+              <img [src]="project.thumbnail" [alt]="project.title" class="w-full h-56 object-cover">
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-text-primary mb-2">{{ project.title }}</h3>
+                <p class="text-text-muted mb-4">{{ project.short_description }}</p>
+                
+                <div class="flex flex-wrap gap-2 mb-4">
+                  @for (tech of project.technologies.slice(0, 4); track tech.id) {
+                    <span class="bg-primary/10 text-primary border border-primary/30 px-3 py-1 rounded-full text-xs font-medium">
+                      {{ tech.name }}
+                    </span>
+                  }
+                </div>
+
+                <div class="flex gap-4">
+                  @if (project.github_url) {
+                    <a [href]="project.github_url" target="_blank" (click)="$event.stopPropagation()"
+                       class="text-text-muted hover:text-accent transition-colors text-sm font-medium">
+                      GitHub
+                    </a>
+                  }
+                  @if (project.live_url) {
+                    <a [href]="project.live_url" target="_blank" (click)="$event.stopPropagation()"
+                       class="text-text-muted hover:text-accent transition-colors text-sm font-medium">
+                      Demo
+                    </a>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+</div>
