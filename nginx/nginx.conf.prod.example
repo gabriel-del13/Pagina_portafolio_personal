@@ -35,14 +35,14 @@ http {
         server frontend:80;
     }
 
-    # Bloquear acceso por IP
+    # Bloquear acceso por IP directo (reemplaza con tu IP del servidor)
     server {
         listen 80;
         listen 443 ssl http2;
-        server_name 44.218.188.161;
+        server_name TU_IP_SERVIDOR;
         
-        ssl_certificate /etc/letsencrypt/live/gabrieldelcid.click/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/gabrieldelcid.click/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/TU_DOMINIO/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/TU_DOMINIO/privkey.pem;
         
         return 444;
     }
@@ -50,17 +50,17 @@ http {
     # Redirect HTTP a HTTPS
     server {
         listen 80;
-        server_name gabrieldelcid.click www.gabrieldelcid.click;
+        server_name TU_DOMINIO www.TU_DOMINIO;
         return 301 https://$host$request_uri;
     }
 
     # HTTPS
     server {
         listen 443 ssl http2;
-        server_name gabrieldelcid.click www.gabrieldelcid.click;
+        server_name TU_DOMINIO www.TU_DOMINIO;
         
-        ssl_certificate /etc/letsencrypt/live/gabrieldelcid.click/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/gabrieldelcid.click/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/TU_DOMINIO/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/TU_DOMINIO/privkey.pem;
         
         # SSL moderno
         ssl_protocols TLSv1.2 TLSv1.3;
@@ -97,9 +97,9 @@ http {
             proxy_read_timeout 60s;
         }
 
-        # Admin del backend
+        # Admin del backend (reemplaza con tu IP permitida)
         location /admin/ {
-            allow 200.46.202.228;
+            allow TU_IP_PERMITIDA;
             deny all;
             
             proxy_pass http://backend;
@@ -126,3 +126,4 @@ http {
         }
     }
 }
+

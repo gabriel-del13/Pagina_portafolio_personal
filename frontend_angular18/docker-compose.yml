@@ -1,8 +1,0 @@
-
-services:
-  frontend:
-    build: .
-    ports:
-      - "80:80"
-    environment:
-      - NODE_ENV=production

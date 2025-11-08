@@ -24,3 +24,5 @@ portfolio.tar.gz
 docker-compose.prod.yml
 docker-compose.ec2.yml
 db.sqlite3
+nginx/nginx.conf
+LINKEDIN_POST.md
